@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import Header from '../../components/header/Header';
+import Header from '../../components/header/header';
 import './Kalendar.css';
 
 const Kalendar = () => {
