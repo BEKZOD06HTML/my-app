@@ -1,0 +1,116 @@
+.kalendar-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.kalendar-content {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.calendar-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.calendar-header h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+/* DatePicker stillarini sozlash */
+.react-datepicker {
+  border: none !important;
+  box-shadow: none !important;
+  width: 100%;
+  font-family: inherit;
+}
+
+.react-datepicker__header {
+  background-color: white !important;
+  border-bottom: none !important;
+  padding-top: 16px !important;
+}
+
+.react-datepicker__month {
+  margin: 8px !important;
+}
+
+.react-datepicker__day-name {
+  color: #666 !important;
+  font-weight: 500;
+}
+
+.react-datepicker__day {
+  margin: 4px !important;
+  border-radius: 8px !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: #f0f0f0 !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: rgba(0, 123, 255, 0.1) !important;
+  color: #007bff !important;
+}
+
+.calendar-info {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot.green {
+  background-color: #28a745;
+}
+
+.dot.red {
+  background-color: #dc3545;
+}
+
+.dot.yellow {
+  background-color: #ffc107;
+} 
