@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../../components/header/header';
-import './Home.css';
+import './home.css';
 
 const Home = () => {
   const [showAmount, setShowAmount] = useState(false);
