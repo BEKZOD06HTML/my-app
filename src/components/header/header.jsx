@@ -1,14 +1,16 @@
 import React from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 import './header.css';
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const username = 'Bekzod';
+  const { logout } = useAuth();
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   const handleLogout = () => {
-    navigate('/login');
+    logout();
   };
 
   const isActive = (path) => {
@@ -19,7 +21,7 @@ const Header = () => {
     <header className="header">
       <div className="header-left">
         <img src="./assets/img/logo.svg" alt="Logo" className="logo" />
-        <span className="username"> {username}</span>
+        <span className="username">{user.username || 'Foydalanuvchi'}</span>
       </div>
       <div className="header-right">
         <nav className="nav-links">
@@ -32,7 +34,6 @@ const Header = () => {
           <Link to="/hisobot" className={`nav-link ${isActive('/hisobot') ? 'active' : ''}`}>
             <img src="./assets/icon/hisobot.svg" alt="t" className="nav-icon" />
           </Link>
-         
           <Link to="/sozlamalar" className={`nav-link ${isActive('/sozlamalar') ? 'active' : ''}`}>
             <img src="./assets/icon/soslamalar.svg" alt="" className="nav-icon" />
           </Link>
@@ -40,7 +41,7 @@ const Header = () => {
             <img src="./assets/icon/kalendar.svg" alt="Kalendar" className="nav-icon" />
           </Link>
           <button onClick={handleLogout} className="logout-button">
-            Logout
+            Chiqish
           </button>
         </nav>
       </div>

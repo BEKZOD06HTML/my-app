@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAuth from './hooks/useAuth';
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { loginMutation } = useAuth();
   const [formData, setFormData] = useState({
-    username: '',
-    password: ''
+    login: '',
+    hashed_password: ''
   });
   const [error, setError] = useState('');
 
@@ -17,13 +19,14 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    if (formData.username === 'bekzod' && formData.password === '123456') {
-      navigate('/home');
-    } else {
-      setError('Notogri username yoki parol!');
+    
+    try {
+      await loginMutation.mutateAsync(formData);
+    } catch (error) {
+      setError(error.message || 'Kirishda xatolik yuz berdi');
     }
   };
 
@@ -36,9 +39,9 @@ const Login = () => {
           <div className="input-group">
             <input
               type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
+              name="login"
+              placeholder="Login"
+              value={formData.login}
               onChange={handleChange}
               required
             />
@@ -46,17 +49,17 @@ const Login = () => {
           <div className="input-group">
             <input
               type="password"
-              name="password"
+              name="hashed_password"
               placeholder="Parol"
-              value={formData.password}
+              value={formData.hashed_password}
               onChange={handleChange}
               required
             />
           </div>
           {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '1rem' }}>{error}</p>}
           <a href="#" className="forgot-password">Parolni unutdingizmi?</a>
-          <button type="submit" className="login-button">
-            Kirish
+          <button type="submit" className="login-button" disabled={loginMutation.isPending}>
+            {loginMutation.isPending ? 'Kirish...' : 'Kirish'}
           </button>
         </form>
         <p className="register-text">
