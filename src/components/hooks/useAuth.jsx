@@ -15,53 +15,47 @@ const useAuth = () => {
           login: login.trim(),
           hashed_password: hashed_password.trim()
         });
-        
-        console.log("API Response:", response.data);
 
         if (response.data && response.data.accessToken) {
           localStorage.setItem("token", response.data.accessToken);
-          
+
           const userData = {
             username: login,
             ...response.data.user
           };
-          
+
           localStorage.setItem("user", JSON.stringify(userData));
-          console.log("Token va user ma'lumotlari saqlandi:", userData);
-          
+          setUser(userData);
+
           return response.data;
         } else {
-          throw new Error("Token topilmadi!");
+          throw new Error("Token topilmadi");
         }
       } catch (error) {
-        console.error("Login xatoligi:", error);
         if (error.response?.data?.message) {
           throw new Error(error.response.data.message);
         }
-        throw new Error("Login muvaffaqiyatsiz tugadi!");
+        throw new Error("Login muvaffaqiyatsiz tugadi");
       }
     },
-    onSuccess: async (data) => {
+    onSuccess: async () => {
       try {
         const token = localStorage.getItem("token");
         if (!token) {
-          message.error("Token saqlanmadi!");
+          message.error("Token saqlanmadi");
           return;
         }
 
         await fetchUser();
-      
         navigate("/home");
-        message.success("Muvaffaqiyatli tizimga kirdingiz!");
+        message.success("Muvaffaqiyatli tizimga kirdingiz");
       } catch (error) {
-        console.error("Success xatoligi:", error);
         message.error("Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi.");
       }
     },
     onError: (error) => {
-      console.error("Error xatoligi:", error);
       if (error?.response?.status === 403) {
-        message.warning("Siz faol emassiz. Iltimos, do'kon bilan bog'laning!");
+        message.warning("Siz faol emassiz. Iltimos, do'kon bilan bog'laning");
       } else {
         message.error(error.message || "Kirishda xatolik yuz berdi. Qayta urinib ko'ring.");
       }
@@ -71,6 +65,8 @@ const useAuth = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    const { logout: storeLogout } = useStore.getState();
+    storeLogout();
     navigate("/login");
     message.info("Tizimdan chiqdingiz.");
   };
