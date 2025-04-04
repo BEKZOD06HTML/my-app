@@ -1,0 +1,150 @@
+/* Umumiy sahifa */
+.clients-section {
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Header 100% kenglikda */
+.clients-section header {
+  width: 100%;
+}
+
+/* Kontent konteyneri */
+.clients-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Qidiruv qismi */
+.clients-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.clients-search-form {
+  position: relative;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.clients-search-form input {
+  width: 100%;
+  padding: 10px 10px 10px 35px;
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.clients-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+/* Clients list */
+.clients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Mijoz card */
+.client-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.client-info {
+  flex: 1;
+}
+
+.client-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.client-phone {
+  font-size: 14px;
+  color: #7d7d7d;
+  margin-bottom: 6px;
+}
+
+.client-debt-label {
+  font-size: 13px;
+  color: #7d7d7d;
+  margin-bottom: 2px;
+}
+
+.client-debt {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.client-debt.negative {
+  color: red;
+}
+
+.client-debt.positive {
+  color: green;
+}
+
+/* Yulduzcha */
+.client-favorite {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.icon-star {
+  font-size: 20px;
+  color: #d3d3d3;
+  transition: color 0.3s;
+}
+
+.icon-star.active {
+  color: gold;
+}
+
+/* Yaratish tugmasi (FAB) */
+.client-add-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 12px 16px;
+  background-color: #007bff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Yuklanish spinner */
+.client-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
