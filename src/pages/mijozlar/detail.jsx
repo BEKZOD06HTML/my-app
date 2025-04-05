@@ -153,7 +153,7 @@ const Detail = () => {
         })}
 
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(handleSubmit)}>
+          <form className="input-form" onSubmit={methods.handleSubmit(handleSubmit)}>
             <input
               type="date"
               {...methods.register("next_payment_date", { required: true })}

@@ -1,4 +1,4 @@
-/* Butun sahifa */
+
 .detail-section {
     min-height: 100vh;
     background-color: #f8f8f8;
@@ -8,7 +8,6 @@
     align-items: center;
   }
   
-  /* Kontent markazga jamlanadi */
   .detail-container {
     width: 100%;
     max-width: 800px;
@@ -17,8 +16,7 @@
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Yuqori sarlavha */
+
   .detail-header {
     display: flex;
     align-items: center;
@@ -30,7 +28,6 @@
     font-size: 24px;
   }
   
-  /* Umumiy nasiya blok */
   .detail-total-debt {
     background: #e6f0ff;
     padding: 16px;
@@ -50,14 +47,12 @@
     font-weight: 600;
   }
   
-  /* Faol nasiyalar sarlavhasi */
   .detail-active-title {
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 18px;
   }
   
-  /* Har bir nasiyaning cardi */
   .detail-debt-card {
     background: #fff;
     border: 1px solid #ddd;
@@ -74,7 +69,6 @@
     margin-bottom: 4px;
   }
   
-  /* Progress bar */
   .detail-debt-progress {
     background: #f1f1f1;
     height: 8px;
@@ -90,7 +84,6 @@
     transition: width 0.3s ease;
   }
   
-  /* “Qo‘shish” tugmasi */
   .detail-add-btn {
     position: fixed;
     bottom: 20px;
@@ -136,4 +129,33 @@
     background-color: #4caf50;
     transition: width 0.3s ease-in-out;
   }
-  
+   form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  form label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  form input,
+  form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  form button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
