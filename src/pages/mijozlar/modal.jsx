@@ -13,7 +13,6 @@ const AddDebtorModal = ({ isOpen, onClose, onAddDebtor }) => {
       const values = await form.validateFields();
       setLoading(true);
 
-      // FormData yaratamiz
       const formData = new FormData();
       formData.append("full_name", values.full_name);
       formData.append("address", values.address || "");

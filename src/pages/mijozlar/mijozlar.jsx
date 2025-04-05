@@ -43,6 +43,7 @@ const Mijozlar = () => {
       <Header />
 
       <div className="clients-container">
+        
         <div className="clients-search">
           <form className="clients-search-form">
             <input type="text" placeholder="Mijozlarni qidirish..." />
