@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const NasiyaModal = ({ isOpen, onClose, onConfirm, totalAmount }) => {
   const [selectedMonths, setSelectedMonths] = useState(3);
+  const [monthlyPayment, setMonthlyPayment] = useState('');
 
   if (!isOpen) return null;
 
@@ -45,6 +46,17 @@ const NasiyaModal = ({ isOpen, onClose, onConfirm, totalAmount }) => {
             </div>
           </div>
 
+          <div>
+            <label className="block text-gray-700 font-medium mb-3">Oylik to'lov:</label>
+            <input
+              type="number"
+              value={monthlyPayment}
+              onChange={(e) => setMonthlyPayment(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors"
+              placeholder="Oylik to'lov miqdorini kiriting"
+            />
+          </div>
+
           <div className="flex gap-4 pt-4">
             <button
               onClick={onClose}
@@ -53,7 +65,7 @@ const NasiyaModal = ({ isOpen, onClose, onConfirm, totalAmount }) => {
               Bekor qilish
             </button>
             <button
-              onClick={() => onConfirm(selectedMonths)}
+              onClick={() => onConfirm(selectedMonths, Number(monthlyPayment))}
               className="flex-1 py-3 px-6 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl"
             >
               Tasdiqlash

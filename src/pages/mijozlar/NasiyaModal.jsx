@@ -112,15 +112,7 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
               placeholder="Sanani tanlang"
               suffixIcon={<CalendarOutlined />}
             />
-            <Checkbox
-              checked={isToday}
-              onChange={(e) => {
-                setIsToday(e.target.checked);
-                setSelectedDate(e.target.checked ? dayjs() : null);
-              }}
-            >
-              Bugun
-            </Checkbox>
+            
           </div>
         </Form.Item>
 
@@ -143,7 +135,7 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
         <Form.Item label="Umumiy qarz summasi" rules={[{ required: true }]}>
           <Input
             type="number"
-            placeholder="Masalan: 1000000"
+            placeholder="Masalan: 353252 sum"
             value={totalDebt}
             onChange={(e) => {
               const value = parseFloat(e.target.value) || 0;
@@ -155,9 +147,6 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
           />
         </Form.Item>
 
-        <Form.Item label="Oylik to'lov (hisoblanadi)">
-          <Input value={monthlyDebt.toFixed(2)} disabled />
-        </Form.Item>
 
         {!descriptionVisible ? (
           <Form.Item>
