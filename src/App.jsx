@@ -17,8 +17,11 @@ const queryClient = new QueryClient();
 
 // PrivateRoute component to protect routes that need authentication
 const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('token'); // Check for token in localStorage
-  return token ? children : <Navigate to="/login" />; // If token exists, render children; otherwise, redirect to login
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
 };
 
 function App() {

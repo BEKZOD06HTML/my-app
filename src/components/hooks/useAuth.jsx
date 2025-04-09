@@ -47,7 +47,7 @@ const useAuth = () => {
         }
 
         await fetchUser();
-        navigate("/home");
+        navigate("/home", { replace: true });
         message.success("Muvaffaqiyatli tizimga kirdingiz");
       } catch (error) {
         message.error("Foydalanuvchi ma'lumotlarini olishda xatolik yuz berdi.");
@@ -67,7 +67,7 @@ const useAuth = () => {
     localStorage.removeItem("user");
     const { logout: storeLogout } = useStore.getState();
     storeLogout();
-    navigate("/login");
+    navigate("/login", { replace: true });
     message.info("Tizimdan chiqdingiz.");
   };
 

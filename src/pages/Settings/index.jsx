@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout, List, Typography, Button } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-
+import Header from '../../components/header/header';
 const { Text } = Typography;
 
 const Settings = () => {
@@ -51,6 +51,7 @@ const Settings = () => {
 
   return (
     <Layout style={{ minHeight: '100vh', background: '#f5f5f5' }}>
+      <Header />
       <div style={{ 
         width: '100%',
         maxWidth: '600px', 
