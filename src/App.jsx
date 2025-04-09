@@ -6,6 +6,11 @@ import Kalendar from './components/kalendar/kalendar';
 import Mijozlar from './pages/mijozlar/mijozlar';
 import Detail from './pages/mijozlar/detail'; // Detail component import
 import Debts from './pages/mijozlar/debts'; // Debts component import
+import Settings from './pages/Settings';
+import Profile from './pages/Settings/Profile';
+import Help from './pages/Settings/Help';
+import Feedback from './pages/Settings/Feedback';
+import About from './pages/Settings/About';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
@@ -68,6 +73,72 @@ function App() {
             element={
               <PrivateRoute>
                 <Detail />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Settings Routes */}
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings/security"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings/help"
+            element={
+              <PrivateRoute>
+                <Help />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings/feedback"
+            element={
+              <PrivateRoute>
+                <Feedback />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings/about"
+            element={
+              <PrivateRoute>
+                <About />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings/terms"
+            element={
+              <PrivateRoute>
+                <Settings />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/settings/privacy"
+            element={
+              <PrivateRoute>
+                <Settings />
               </PrivateRoute>
             }
           />

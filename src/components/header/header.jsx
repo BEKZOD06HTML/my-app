@@ -43,7 +43,7 @@ const Header = () => {
           <Link to="/hisobot" className={`nav-link ${isActive('/hisobot') ? 'active' : ''}`}>
             <img src="./assets/icon/hisobot.svg" className="nav-icon" />
           </Link>
-          <Link to="/sozlamalar" className={`nav-link ${isActive('/sozlamalar') ? 'active' : ''}`}>
+          <Link to="/settings" className={`nav-link ${isActive('/settings') ? 'active' : ''}`}>
             <img src="./assets/icon/sozlamalar.svg" className="nav-icon" />
           </Link>
           <Link to="/kalendar" className={`nav-link ${isActive('/kalendar') ? 'active' : ''}`}>
