@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Modal, Form, Input, DatePicker, Checkbox, Select,
+  Modal, Form, Input, DatePicker, Select,
   Button, Upload, message
 } from 'antd';
 import {
@@ -12,7 +12,6 @@ const { Option } = Select;
 
 const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
   const [form] = Form.useForm();
-  const [isToday, setIsToday] = useState(false);
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,7 +23,6 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
 
   const resetForm = () => {
     form.resetFields();
-    setIsToday(false);
     setDescriptionVisible(false);
     setImages([]);
     setSelectedDate(null);
@@ -49,25 +47,33 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
       if (debtPeriod <= 0) {
         return message.error("Qarz muddatini tanlang");
       }
+      
+      if (totalDebt > 1000000000) {
+        return message.error("Qarz summasi juda katta (1 milliarddan katta). Iltimos, kichikroq summa kiriting.");
+      }
 
       setLoading(true);
 
+      // Qarz summasini 2 ta o'nlik raqam bilan cheklash
+      const formattedTotalDebt = parseFloat(totalDebt.toFixed(2));
+      const formattedDebtSum = parseFloat((formattedTotalDebt / debtPeriod).toFixed(2));
+
+      // Nasiya ma'lumotlarini tayyorlash
       const debtData = {
-        product_name: values.productName,
         next_payment_date: selectedDate ? selectedDate.format("YYYY-MM-DD") : dayjs().format("YYYY-MM-DD"),
         debt_period: Number(debtPeriod),
-        total_debt_sum: Number(totalDebt),
-        debt_sum: Number(monthlyDebt),
-        description: values.description || description,
+        total_debt_sum: formattedTotalDebt,
+        debt_sum: formattedDebtSum,
+        description: values.description || description || "",
         images: images.map(file => ({
           image: file.thumbUrl || file.url || file.name,
           uid: file.uid
         })),
-        debtor_id: Number(debtorId),
         debt_status: 'active',
+        debtor_id: debtorId
       };
 
-      console.log("Yuborilayotgan ma'lumotlar:", debtData);
+      console.log("Modal: Yuborilayotgan ma'lumotlar:", debtData);
 
       await createDebt(debtData);
       message.success("Qarz muvaffaqiyatli yaratildi!");
@@ -77,8 +83,12 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
       console.error("Form xatoligi:", err);
       if (err.errorFields) {
         message.error("Iltimos, barcha maydonlarni to'g'ri to'ldiring");
+      } else if (err.message) {
+        message.error(err.message);
+      } else if (err.response?.data?.message) {
+        message.error(err.response.data.message);
       } else {
-        message.error(err.message || "Qarz yaratishda xatolik yuz berdi");
+        message.error("Qarz yaratishda xatolik yuz berdi. Internet aloqangizni tekshiring.");
       }
     } finally {
       setLoading(false);
@@ -100,10 +110,6 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
       </div>
 
       <Form form={form} layout="vertical">
-        <Form.Item name="productName" label="Mahsulot nomi" rules={[{ required: true }]}>
-          <Input placeholder="Ismini kiriting" />
-        </Form.Item>
-
         <Form.Item label="Sana">
           <div style={{ display: 'flex', gap: 8 }}>
             <DatePicker
@@ -111,17 +117,20 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
               onChange={setSelectedDate}
               placeholder="Sanani tanlang"
               suffixIcon={<CalendarOutlined />}
+              format="YYYY-MM-DD"
+              defaultValue={dayjs()}
             />
-            
           </div>
         </Form.Item>
 
-        <Form.Item label="Muddat (oy)">
+        <Form.Item label="Muddat (oy)" rules={[{ required: true, message: "Qarz muddatini tanlang" }]}>
           <Select
             placeholder="Qarz muddatini tanlang"
             onChange={(val) => {
               setDebtPeriod(val);
-              setMonthlyDebt(totalDebt / val);
+              if (totalDebt) {
+                setMonthlyDebt(parseFloat((totalDebt / val).toFixed(2)));
+              }
             }}
           >
             <Option key="1" value={1}>1 oy</Option>
@@ -132,7 +141,13 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Umumiy qarz summasi" rules={[{ required: true }]}>
+        <Form.Item 
+          label="Umumiy qarz summasi" 
+          rules={[
+            { required: true, message: "Qarz summasini kiriting" },
+            { type: 'number', min: 1, message: "Qarz summasi 0 dan katta bo'lishi kerak" }
+          ]}
+        >
           <Input
             type="number"
             placeholder="Masalan: 353252 sum"
@@ -141,12 +156,21 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
               const value = parseFloat(e.target.value) || 0;
               setTotalDebt(value);
               if (debtPeriod) {
-                setMonthlyDebt(value / debtPeriod);
+                setMonthlyDebt(parseFloat((value / debtPeriod).toFixed(2)));
               }
             }}
+            max={1000000000}
           />
         </Form.Item>
 
+        <Form.Item label="Oylik to'lov">
+          <Input
+            type="number"
+            placeholder="Oylik to'lov summasi"
+            value={monthlyDebt}
+            disabled
+          />
+        </Form.Item>
 
         {!descriptionVisible ? (
           <Form.Item>
@@ -155,7 +179,7 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
             </Button>
           </Form.Item>
         ) : (
-          <Form.Item label="Izoh" name="description" rules={[{ required: true }]}>
+          <Form.Item label="Izoh" name="description">
             <Input.TextArea
               placeholder="Izohni shu yerga yozing..."
               autoSize={{ minRows: 3 }}
@@ -165,7 +189,10 @@ const NasiyaModal = ({ open, onClose, debtorId, createDebt }) => {
           </Form.Item>
         )}
 
-        <Form.Item label="Rasmlar (2 ta)" rules={[{ required: true }]}>
+        <Form.Item 
+          label="Rasmlar (2 ta)" 
+          rules={[{ required: true, message: "Iltimos, ikkita rasm tanlang" }]}
+        >
           <Upload
             listType="picture-card"
             beforeUpload={() => false}

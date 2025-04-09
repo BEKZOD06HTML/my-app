@@ -131,6 +131,11 @@
   border: none;
 }
 
+.detail-add-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .detail-back-btn {
   display: flex;
   align-items: center;
@@ -157,12 +162,15 @@
   font-style: italic;
 }
 
-.loader {
+.detail-loading {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 70vh;
+  width: 100%;
   color: #1890ff;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .error {
